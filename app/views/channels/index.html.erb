@@ -26,8 +26,8 @@
                         </a>
                     </li>
                     <li class="nav-item ">
-                            <i class="material-icons">camera_enhance</i>
                             <% if @channels.any? %>
+                            <i class="material-icons">camera_enhance</i>
                             <%= link_to "Channel Anda", channels_path, class: 'nav-link' %>
                             <% else %>
                             <%= link_to "Buat Channel", new_channel_path, class: 'nav-link' %>
@@ -41,9 +41,6 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
                 <div class="container-fluid">
-                    <div class="navbar-wrapper">
-                        <a class="navbar-brand" href="#pablo">Material Dashboard</a>
-                    </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="navbar-toggler-icon icon-bar"></span>
@@ -90,6 +87,12 @@
                 </div>
             </nav>
             <!-- End Navbar -->
+            <div class="jumbotron">
+                <% @channels.each do |c| %>
+                    <h2 class="display-4"><%= c.user.name %></h2>
+                <% end %>
+                <%= link_to 'Upload Music', class: 'btn btn-primary' %>
+            </div>
                 </div>
             </footer>
         </div>
