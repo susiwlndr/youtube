@@ -1,0 +1,46 @@
+<style>
+  .right{
+    float: right;
+   }
+</style>
+
+<% @musics.each do |music| %>
+<div class="card col-md-6">
+  <div class="card-body">
+    <h5 class="card-title"><%= music.title %></h5>
+    <p class="card-text"><%= music.user.name %></p>
+
+    <%= music.comment_musics.count %> Comment |&nbsp;
+    <%= music.likes.count %> <%= (music.likes.count) == 1 ? 'Like' : 'Dislike'%><br/>
+    <% pre_like = music.likes.find { |like| like.user_id == current_user.id} %>
+    <% if pre_like %>
+      <%= link_to 'Dislike', music_like_path(music, pre_like), method: :delete %>
+    <% else %>
+      <%= link_to 'Like', music_likes_path(music), method: :post %>
+    <% end %> |
+
+    <%= link_to 'Comment', page_path(music) %> &nbsp
+
+    <div class="right">
+      <% pre_subs = music.subscription_musics.find { |subscription_music| subscription_music.user_id == current_user.id} %>
+      <% if pre_subs %>
+        <%= link_to 'Disubcribe', music_subscription_music_path(music, pre_subs), method: :delete %>
+      <% else %>
+        <%= link_to 'Subscribe', music_subscription_musics_path(music), method: :post %>
+      <% end %> |
+
+      <% pre_play = music.playlists.find { |playlist| playlist.user_id == current_user.id} %>
+      <% if pre_play %>
+        <%= link_to 'Hapus dari playlist', music_playlist_path(music, pre_play), method: :delete %>
+      <% else %>
+        <%= link_to 'Simpan ke playlist', music_playlists_path(music), method: :post %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>
+<% if @channels %>
+  <%= link_to "Channel Anda", channels_path, class: 'btn btn-primary' %>
+<% else %>
+  <%= link_to "Buat Channel", new_channel_path, class: 'btn btn-primary' %>
+<% end %>

@@ -1,13 +1,17 @@
 <div class="jumbotron">
-    <% @channels.each do |c| %>
-        <h2 class="display-4"><%= c.user.name %></h2><br/>
-        <%= link_to 'Video' %> | <%= link_to 'Playlist' %> | <%= link_to 'Channel' %> | <%= link_to 'Tentang' %></br></br>
-    <%= link_to 'Upload Music', new_music_path, class: 'btn btn-primary' %>
-<% end %>           
+  <h2 class="display-4"><%= @channels.user.name %></h2><br/>
+  <%= link_to 'Video' %> | 
+  <%= link_to 'Playlist', page_playlists_path %> | 
+<%= link_to 'Channel' %> | 
+  <%= link_to 'Tentang' %></br></br>
+  <%= link_to 'Upload Music', channel_path(@channels), class: 'btn btn-primary' %>     
 </div>
-<div class="jumbotron">
-    <% @musics.each do |m| %>
-    		<h3 class="display-4"><%= m.title %></h3>
-        <h2 class="display-4"><%= m.user.name %></h2>
-<% end %>           
+
+<% @musics.each do |m| %>
+<div class="card col-md-3">
+  <div class="card-body">
+    <h5 class="card-title"><%= m.title %></h5>
+    <p class="card-text"><%= m.user.name %></p>
+  </div>
 </div>
+<% end %>

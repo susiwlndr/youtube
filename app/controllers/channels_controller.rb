@@ -1,8 +1,13 @@
 class ChannelsController < ApplicationController
 	before_action :authenticate_user!
 	def index
-		@channels = Channel.all
+		@channels = current_user.channel
 		@musics = current_user.musics
+	end
+
+	def show
+		@channel = Channel.find(params[:id])
+		@music = Music.new
 	end
 
 	def new

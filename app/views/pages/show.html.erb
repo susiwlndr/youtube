@@ -1,0 +1,18 @@
+<div class="card col-md-6">
+  <div class="card-body">
+    <h5 class="card-title"><%= @music.title %></h5>
+  </div>
+
+<% @comments.each do |c| %>
+  oleh <%= c.user.name %>
+  <p><%= c.comment %></p>
+<%end%>
+
+  <%= form_for [@music, @comment] do |f| %>
+    <div class="form-group">
+      <%= f.label :comment %>
+      <%= f.text_area :comment, rows: 3, class: 'form-control' %>
+    </div>
+    <%= f.submit "comment", class: 'btn btn-primary' %>
+  <% end %>
+</div>

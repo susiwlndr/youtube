@@ -6,12 +6,11 @@
     <h5 class="card-title">Beri tahu penonton tentang apa atau siapa yang ditampilkan dalam video Anda. Deskripsi Anda bisa ditampilkan di hasil penelusuran dan di tempat lainnya.</h5>
 
     <%= form_for @channel do |f| %>
-    <div class="form-group">
-    <%= f.label :deskripsi %>
+      <div class="form-group">
+        <%= f.label :deskripsi %>
         <%= f.text_area :deskripsi, rows: 3, class: 'form-control' %>
+        <%= f.submit "Simpan", class: 'btn btn-primary' %>
+      </div>
+    <% end %>  
   </div>
-    <%= f.submit "Simpan", class: 'btn btn-primary' %>
-  </div>
-    <% end %>
 </div>
-                </div>

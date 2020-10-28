@@ -1,0 +1,8 @@
+<% @subscription.each do |subs| %>
+<div class="card col-md-6">
+  <div class="card-body">
+    <h5 class="card-title"><%= subs.music.title %></h5>
+    <p class="card-text"><%= subs.music.user.name %></p>
+  </div>
+</div>
+<% end %>

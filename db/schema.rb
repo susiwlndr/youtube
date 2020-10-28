@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_062537) do
+ActiveRecord::Schema.define(version: 2020_10_27_075722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,14 +22,48 @@ ActiveRecord::Schema.define(version: 2020_10_26_062537) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "comment_musics", force: :cascade do |t|
+    t.text "comment"
+    t.integer "user_id"
+    t.integer "music_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "music_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["music_id"], name: "index_likes_on_music_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "musics", force: :cascade do |t|
     t.integer "user_id"
     t.integer "channel_id"
     t.string "title"
     t.text "description"
-    t.text "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "playlists", force: :cascade do |t|
+    t.bigint "music_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["music_id"], name: "index_playlists_on_music_id"
+    t.index ["user_id"], name: "index_playlists_on_user_id"
+  end
+
+  create_table "subscription_musics", force: :cascade do |t|
+    t.bigint "music_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["music_id"], name: "index_subscription_musics_on_music_id"
+    t.index ["user_id"], name: "index_subscription_musics_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -45,4 +79,10 @@ ActiveRecord::Schema.define(version: 2020_10_26_062537) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "likes", "musics"
+  add_foreign_key "likes", "users"
+  add_foreign_key "playlists", "musics"
+  add_foreign_key "playlists", "users"
+  add_foreign_key "subscription_musics", "musics"
+  add_foreign_key "subscription_musics", "users"
 end
